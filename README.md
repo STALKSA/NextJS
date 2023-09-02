@@ -1,4 +1,5 @@
-# NextJS
+# [NextJS]("https://shimmering-torte-862681.netlify.app/")
+
 
 1. Настроить на сервисе Vercel( и/или Cloudflare Pages, GitHub Pages, Netlify, AWS Amplify, Digital Ocean, Heroku, MS Azure, Google Cloud Platform итд )
 автоматическую облачную сборку (Deploy) проекта из репозитория в статический сайт.
