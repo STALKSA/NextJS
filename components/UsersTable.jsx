@@ -1,9 +1,278 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UsersTable.module.css";
 
+// function UsersTable() {
+//   const [users, setUsers] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [newUser, setNewUser] = useState({
+//     name: "",
+//     email: "",
+//     city: "",
+//     phone: "",
+//     website: "",
+//     company: "",
+//   });
+//   const [editedUser, setEditedUser] = useState(null); // Состояние для редактируемого пользователя
+//   const [sortField, setSortField] = useState(""); // Поле для сортировки
+//   const [sortDirection, setSortDirection] = useState("asc"); // Направление сортировки
+
+//   useEffect(() => {
+//     fetch("https://jsonplaceholder.typicode.com/users")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         setUsers(data);
+//         setLoading(false);
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching data:", error);
+//         setLoading(false);
+//       });
+//   }, []);
+
+//   const handleDeleteUser = (userId) => {
+//     const updatedUsers = users.filter((user) => user.id !== userId);
+//     setUsers(updatedUsers);
+//   };
+
+//   const handleAddUser = () => {
+//     setUsers([...users, newUser]);
+//     setNewUser({
+//       name: "",
+//       email: "",
+//       city: "",
+//       phone: "",
+//       website: "",
+//       company: "",
+//     });
+//   };
+
+//   const handleEditUser = (user) => {
+//     setEditedUser({ ...user }); // Устанавливаем редактируемого пользователя с копией
+//   };
+
+//   const handleSaveUser = () => {
+//     const updatedUsers = users.map((user) =>
+//       user.id === editedUser.id ? editedUser : user
+//     );
+//     setUsers(updatedUsers);
+//     setEditedUser(null);
+//   };
+
+//   const handleSort = (field) => {
+//     const direction =
+//       field === sortField && sortDirection === "asc" ? "desc" : "asc";
+//     setSortField(field);
+//     setSortDirection(direction);
+
+//     const sortedUsers = [...users].sort((a, b) => {
+//       if (a[field] < b[field]) {
+//         return direction === "asc" ? -1 : 1;
+//       }
+//       if (a[field] > b[field]) {
+//         return direction === "asc" ? 1 : -1;
+//       }
+//       return 0;
+//     });
+
+//     setUsers(sortedUsers);
+//   };
+
+//   if (loading) {
+//     return <div>Loading...</div>;
+//   }
+
+//   return (
+//     <div>
+//       <table className={styles.table}>
+//         <thead>
+//           <tr>
+//             <th className={styles.th} onClick={() => handleSort("name")}>
+//               Имя
+//             </th>
+//             <th className={styles.th} onClick={() => handleSort("email")}>
+//               Email
+//             </th>
+//             <th
+//               className={styles.th}
+//               onClick={() => handleSort("address.city")}
+//             >
+//               Город
+//             </th>
+//             <th className={styles.th} onClick={() => handleSort("phone")}>
+//               Телефон
+//             </th>
+//             <th className={styles.th} onClick={() => handleSort("website")}>
+//               Website
+//             </th>
+//             <th
+//               className={styles.th}
+//               onClick={() => handleSort("company.name")}
+//             >
+//               Компания
+//             </th>
+//             <th className={styles.th}>Действия</th>
+//           </tr>
+//         </thead>
+//         <tbody>
+//           {users.map((user) => (
+//             <tr key={user.id}>
+//               <td className={styles.td}>
+//                 {editedUser !== null && editedUser.id === user.id ? (
+//                   <input
+//                     type="text"
+//                     value={editedUser.name}
+//                     onChange={(e) =>
+//                       setEditedUser({ ...editedUser, name: e.target.value })
+//                     }
+//                   />
+//                 ) : (
+//                   user.name
+//                 )}
+//               </td>
+//               <td className={styles.td}>
+//                 {editedUser !== null && editedUser.id === user.id ? (
+//                   <input
+//                     type="text"
+//                     value={editedUser.email}
+//                     onChange={(e) =>
+//                       setEditedUser({ ...editedUser, email: e.target.value })
+//                     }
+//                   />
+//                 ) : (
+//                   user.email
+//                 )}
+//               </td>
+//               <td className={styles.td}>
+//                 {editedUser !== null && editedUser.id === user.id ? (
+//                   <input
+//                     type="text"
+//                     value={editedUser.address.city}
+//                     onChange={(e) =>
+//                       setEditedUser({
+//                         ...editedUser,
+//                         address: {
+//                           ...editedUser.address,
+//                           city: e.target.value,
+//                         },
+//                       })
+//                     }
+//                   />
+//                 ) : (
+//                   user.address.city
+//                 )}
+//               </td>
+//               <td className={styles.td}>
+//                 {editedUser !== null && editedUser.id === user.id ? (
+//                   <input
+//                     type="text"
+//                     value={editedUser.phone}
+//                     onChange={(e) =>
+//                       setEditedUser({ ...editedUser, phone: e.target.value })
+//                     }
+//                   />
+//                 ) : (
+//                   user.phone
+//                 )}
+//               </td>
+//               <td className={styles.td}>
+//                 {editedUser !== null && editedUser.id === user.id ? (
+//                   <input
+//                     type="text"
+//                     value={editedUser.website}
+//                     onChange={(e) =>
+//                       setEditedUser({ ...editedUser, website: e.target.value })
+//                     }
+//                   />
+//                 ) : (
+//                   user.website
+//                 )}
+//               </td>
+//               <td className={styles.td}>{user.company.name}</td>
+//               <td className={styles.td}>
+//                 {editedUser !== null && editedUser.id === user.id ? (
+//                   <>
+//                     <button onClick={handleSaveUser}>Сохранить</button>
+//                     <button onClick={() => setEditedUser(null)}>Отмена</button>
+//                   </>
+//                 ) : (
+//                   <>
+//                     <button
+//                       className={styles.editButton}
+//                       onClick={() => handleEditUser(user)}
+//                     >
+//                       Редактировать
+//                     </button>
+//                     <button
+//                       className={styles.deleteButton}
+//                       onClick={() => handleDeleteUser(user.id)}
+//                     >
+//                       Удалить
+//                     </button>
+//                   </>
+//                 )}
+//               </td>
+//             </tr>
+//           ))}
+//         </tbody>
+//       </table>
+//       <div className={styles.addUser}>
+//         <h2>Добавить пользователя</h2>
+//         <input
+//           type="text"
+//           placeholder="Имя"
+//           value={newUser.name}
+//           onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+//         />
+//         <input
+//           type="text"
+//           placeholder="Email"
+//           value={newUser.email}
+//           onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+//         />
+//         <input
+//           type="text"
+//           placeholder="Город"
+//           value={newUser.city}
+//           onChange={(e) => setNewUser({ ...newUser, city: e.target.value })}
+//         />
+//         <input
+//           type="text"
+//           placeholder="Телефон"
+//           value={newUser.phone}
+//           onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+//         />
+//         <input
+//           type="text"
+//           placeholder="Website"
+//           value={newUser.website}
+//           onChange={(e) => setNewUser({ ...newUser, website: e.target.value })}
+//         />
+//         <input
+//           type="text"
+//           placeholder="Компания"
+//           value={newUser.company}
+//           onChange={(e) => setNewUser({ ...newUser, company: e.target.value })}
+//         />
+//         <button onClick={handleAddUser}>Добавить</button>
+//       </div>
+//     </div>
+//   );
+// }
+
 function UsersTable() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    city: "",
+    phone: "",
+    website: "",
+    company: "",
+  });
+  const [editedUser, setEditedUser] = useState(null); // Состояние для редактируемого пользователя
+  const [sortField, setSortField] = useState(""); // Поле для сортировки
+  const [sortDirection, setSortDirection] = useState("asc"); // Направление сортировки
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -18,35 +287,235 @@ function UsersTable() {
       });
   }, []);
 
+  const handleDeleteUser = (userId) => {
+    const updatedUsers = users.filter((user) => user.id !== userId);
+    setUsers(updatedUsers);
+  };
+
+  const handleAddUser = () => {
+    setUsers([...users, newUser]);
+    setNewUser({
+      name: "",
+      email: "",
+      city: "",
+      phone: "",
+      website: "",
+      company: "",
+    });
+  };
+
+  const handleEditUser = (user) => {
+    setEditedUser({ ...user }); // Устанавливаем редактируемого пользователя с копией
+  };
+
+  const handleSaveUser = () => {
+    const updatedUsers = users.map((user) =>
+      user.id === editedUser.id ? editedUser : user
+    );
+    setUsers(updatedUsers);
+    setEditedUser(null);
+  };
+
+  const handleSort = (field) => {
+    const direction =
+      field === sortField && sortDirection === "asc" ? "desc" : "asc";
+    setSortField(field);
+    setSortDirection(direction);
+
+    const sortedUsers = [...users].sort((a, b) => {
+      if (a[field] < b[field]) {
+        return direction === "asc" ? -1 : 1;
+      }
+      if (a[field] > b[field]) {
+        return direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+
+    setUsers(sortedUsers);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th className={styles.th}>Имя</th>
-          <th className={styles.th}>Email</th>
-          <th className={styles.th}>Город</th>
-          <th className={styles.th}>Телефон</th>
-          <th className={styles.th}>Website</th>
-          <th className={styles.th}>Компания</th>
-        </tr>
-      </thead>
-      <tbody>
-        {users.map((user) => (
-          <tr key={user.id}>
-            <td className={styles.td}>{user.name}</td>
-            <td className={styles.td}>{user.email}</td>
-            <td className={styles.td}>{user.address.city}</td>
-            <td className={styles.td}>{user.phone}</td>
-            <td className={styles.td}>{user.website}</td>
-            <td className={styles.td}>{user.company.name}</td>
+    <div>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th className={styles.th} onClick={() => handleSort("name")}>
+              Имя
+            </th>
+            <th className={styles.th} onClick={() => handleSort("email")}>
+              Email
+            </th>
+            <th
+              className={styles.th}
+              onClick={() => handleSort("address.city")}
+            >
+              Город
+            </th>
+            <th className={styles.th} onClick={() => handleSort("phone")}>
+              Телефон
+            </th>
+            <th className={styles.th} onClick={() => handleSort("website")}>
+              Website
+            </th>
+            <th
+              className={styles.th}
+              onClick={() => handleSort("company.name")}
+            >
+              Компания
+            </th>
+            <th className={styles.th}>Действия</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td className={styles.td}>
+                {editedUser !== null && editedUser.id === user.id ? (
+                  <input
+                    type="text"
+                    value={editedUser.name}
+                    onChange={(e) =>
+                      setEditedUser({ ...editedUser, name: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.name
+                )}
+              </td>
+              <td className={styles.td}>
+                {editedUser !== null && editedUser.id === user.id ? (
+                  <input
+                    type="text"
+                    value={editedUser.email}
+                    onChange={(e) =>
+                      setEditedUser({ ...editedUser, email: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.email
+                )}
+              </td>
+              <td className={styles.td}>
+                {editedUser !== null && editedUser.id === user.id ? (
+                  <input
+                    type="text"
+                    value={editedUser.address ? editedUser.address.city : ""}
+                    onChange={(e) =>
+                      setEditedUser({
+                        ...editedUser,
+                        address: {
+                          ...editedUser.address,
+                          city: e.target.value,
+                        },
+                      })
+                    }
+                  />
+                ) : user.address ? (
+                  user.address.city
+                ) : (
+                  ""
+                )}
+              </td>
+              <td className={styles.td}>
+                {editedUser !== null && editedUser.id === user.id ? (
+                  <input
+                    type="text"
+                    value={editedUser.phone}
+                    onChange={(e) =>
+                      setEditedUser({ ...editedUser, phone: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.phone
+                )}
+              </td>
+              <td className={styles.td}>
+                {editedUser !== null && editedUser.id === user.id ? (
+                  <input
+                    type="text"
+                    value={editedUser.website}
+                    onChange={(e) =>
+                      setEditedUser({ ...editedUser, website: e.target.value })
+                    }
+                  />
+                ) : (
+                  user.website
+                )}
+              </td>
+              <td className={styles.td}>{user.company.name}</td>
+              <td className={styles.td}>
+                {editedUser !== null && editedUser.id === user.id ? (
+                  <>
+                    <button onClick={handleSaveUser}>Сохранить</button>
+                    <button onClick={() => setEditedUser(null)}>Отмена</button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className={styles.editButton}
+                      onClick={() => handleEditUser(user)}
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => handleDeleteUser(user.id)}
+                    >
+                      Удалить
+                    </button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className={styles.addUser}>
+        <h2>Добавить пользователя</h2>
+        <input
+          type="text"
+          placeholder="Имя"
+          value={newUser.name}
+          onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          value={newUser.email}
+          onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Город"
+          value={newUser.address}
+          onChange={(e) => setNewUser({ ...newUser, address: e.target.value})}
+        />
+        <input
+          type="text"
+          placeholder="Телефон"
+          value={newUser.phone}
+          onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Website"
+          value={newUser.website}
+          onChange={(e) => setNewUser({ ...newUser, website: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Компания"
+          value={newUser.company.name}
+          onChange={(e) => setNewUser({ ...newUser, company: e.target.value })}
+        />
+        <button onClick={handleAddUser}>Добавить</button>
+      </div>
+    </div>
   );
 }
 
