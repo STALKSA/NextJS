@@ -1,104 +1,89 @@
-/* .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border: 1px solid green;
-    box-shadow: 0 5px 8px green;
-}
-
-.th {
-    background-color: #3CB371;
-    text-align: center;
-    padding: 30px;
-    border: 1px solid #ddd;
-}
-
-.td {
-    padding: 30px;
-    border: 2px solid #ddd;
-}
-
-.tr:nth-child(even) {
-    background-color: #f2f2f2;
-} */
-
-/* Общие стили таблицы */
 .table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Стили заголовков (th) */
-  .th {
+}
+
+/* Стили заголовков (th) */
+.th {
     background-color: #3CB371;
     text-align: center;
     padding: 12px;
     border: 1px solid #ddd;
-    color: white; /* Цвет текста заголовков */
-    font-weight: bold; /* Жирный шрифт для заголовков */
-  }
-  
-  /* Стили ячеек (td) */
-  .td {
+    color: white;
+    /* Цвет текста заголовков */
+    font-weight: bold;
+    /* Жирный шрифт для заголовков */
+}
+
+/* Стили ячеек (td) */
+.td {
     padding: 12px;
     border: 1px solid #ddd;
-  }
-  
-  /* Стили четных строк */
-  .tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
+}
 
-  
-  /* Стили формы добавления пользователя */
-  .addUser {
+/* Стили четных строк */
+.tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+/* Стили формы добавления пользователя */
+.addUser {
     margin-top: 20px;
     padding: 16px;
     border: 1px solid #ddd;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .addUser input {
+}
+
+.addUser input {
     margin-right: 8px;
     padding: 6px;
     border: 1px solid #ddd;
-  }
-  
-  .addUser button {
+}
+
+.addUser button {
     padding: 6px 12px;
-    background-color: #28a745; /* Цвет кнопки добавления */
-    color: white; /* Цвет текста кнопки */
+    background-color: #28a745;
+    /* Цвет кнопки добавления */
+    color: white;
+    /* Цвет текста кнопки */
     border: none;
     cursor: pointer;
-  }
-  
-  .addUser button:hover {
-    background-color: #1e7e34; /* Цвет кнопки при наведении */
-  }
+}
 
-  .editButton {
+.addUser button:hover {
+    background-color: #1e7e34;
+    /* Цвет кнопки при наведении */
+}
+
+.editButton {
     padding: 6px 12px;
-    background-color: #007bff; /* Цвет кнопки редактирования */
-    color: white; /* Цвет текста кнопки */
+    background-color: #007bff;
+    /* Цвет кнопки редактирования */
+    color: white;
+    /* Цвет текста кнопки */
     border: none;
     cursor: pointer;
-  }
+}
 
-  .editButton:hover {
-    background-color: #0056b3; /* Цвет кнопки редактирования при наведении */
-  }
+.editButton:hover {
+    background-color: #0056b3;
+    /* Цвет кнопки редактирования при наведении */
+}
 
-  .deleteButton {
+.deleteButton {
     padding: 6px 12px;
-    background-color: #dc3545; /* Цвет кнопки удаления */
-    color: white; /* Цвет текста кнопки */
+    background-color: #dc3545;
+    /* Цвет кнопки удаления */
+    color: white;
+    /* Цвет текста кнопки */
     border: none;
     cursor: pointer;
-  }
-  
-  .deleteButton:hover {
-    background-color: #c82333; /* Цвет кнопки удаления при наведении */
-  }
+}
+
+.deleteButton:hover {
+    background-color: #c82333;
+    /* Цвет кнопки удаления при наведении */
+}
