@@ -1,27 +1,27 @@
-import React from 'react';
-import styles from './ToDoList.module.css'
-
+import React from "react";
+import styles from "./ToDoList.module.css";
+import CalendarGenerator from "./Calendar";
 
 function TaskList() {
   const [tasks, setTasks] = React.useState([]);
-  const [newTask, setNewTask] = React.useState('');
+  const [newTask, setNewTask] = React.useState("");
 
   React.useEffect(() => {
-    const savedTasks = localStorage.getItem('tasks');
+    const savedTasks = localStorage.getItem("tasks");
     if (savedTasks) {
       setTasks(JSON.parse(savedTasks));
     }
   }, []);
 
   React.useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
   const addTask = () => {
-    if (newTask.trim() !== '') {
+    if (newTask.trim() !== "") {
       const newTaskObj = { text: newTask, completed: false };
       setTasks([...tasks, newTaskObj]);
-      setNewTask('');
+      setNewTask("");
     }
   };
 
@@ -38,23 +38,27 @@ function TaskList() {
   };
 
   return (
-    <div className={styles['task-list']}>
-      <h1 className={styles['task-list-title']}>Список дел</h1>
-      <div className={styles['add-task']}>
+    <div className={styles["task-list"]}>
+      <h1 className={styles["task-list-title"]}>Список дел</h1>
+      <div className={styles["add-task"]}>
         <input
           type="text"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
           placeholder="Новая задача..."
-          className={styles['add-task-input']}
+          className={styles["add-task-input"]}
         />
-        <button onClick={addTask} className={styles['add-button']}>Добавить</button>
+        <button onClick={addTask} className={styles["add-button"]}>
+          Добавить
+        </button>
       </div>
-      <ul className={styles['tasks']}>
+      <ul className={styles["tasks"]}>
         {tasks.map((task, index) => (
           <li
             key={index}
-            className={`${styles['task']} ${task.completed ? styles['completed'] : ''}`}
+            className={`${styles["task"]} ${
+              task.completed ? styles["completed"] : ""
+            }`}
           >
             <input
               type="checkbox"
@@ -63,13 +67,14 @@ function TaskList() {
             />
             <span>{task.text}</span>
             <span
-              className={styles['delete-icon']}
+              className={styles["delete-icon"]}
               onClick={() => deleteTask(index)}
-            >
-            </span>
+            ></span>
           </li>
         ))}
       </ul>
+      {/* Вставляем CalendarGenerator компонент в конце TaskList */}
+      <CalendarGenerator />
     </div>
   );
 }

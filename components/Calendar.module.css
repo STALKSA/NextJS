@@ -1,0 +1,12 @@
+
+.calendar {
+    border: 1px solid #4cb028;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.calendar button {
+    background-color: #28a745;
+    color: white;
+
+}
