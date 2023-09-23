@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UsersTable.module.css";
+import useSWR from 'swr';
+import toast from 'react-hot-toast';
+
 
 function UsersTable() {
   const [users, setUsers] = useState([]);
@@ -17,7 +20,7 @@ function UsersTable() {
   const [sortDirection, setSortDirection] = useState("asc"); // Направление сортировки
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("http://localhost:3333/users")
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);
@@ -29,33 +32,95 @@ function UsersTable() {
       });
   }, []);
 
+
+  // const handleDeleteUser = (userId) => {
+  //   const updatedUsers = users.filter((user) => user.id !== userId);
+  //   setUsers(updatedUsers);
+  // };
+
   const handleDeleteUser = (userId) => {
-    const updatedUsers = users.filter((user) => user.id !== userId);
-    setUsers(updatedUsers);
+    // Удаление пользователя с локального сервера
+    fetch(`http://localhost:3333/users/${userId}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        const updatedUsers = users.filter((user) => user.id !== userId);
+        setUsers(updatedUsers);
+      })
+      .catch((error) => {
+        console.error("Error deleting user:", error);
+      });
   };
 
+  // const handleAddUser = () => {
+  //   setUsers([...users, newUser]);
+  //   setNewUser({
+  //     name: "",
+  //     email: "",
+  //     city: "",
+  //     phone: "",
+  //     website: "",
+  //     company: "",
+  //   });
+  // };
+
   const handleAddUser = () => {
-    setUsers([...users, newUser]);
-    setNewUser({
-      name: "",
-      email: "",
-      city: "",
-      phone: "",
-      website: "",
-      company: "",
-    });
+    // Добавление нового пользователя на локальный сервер
+    fetch("http://localhost:3333/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers([...users, data]);
+        setNewUser({
+          name: "",
+          email: "",
+          city: "",
+          phone: "",
+          website: "",
+          company: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding user:", error);
+      });
   };
 
   const handleEditUser = (user) => {
     setEditedUser({ ...user }); // Устанавливаем редактируемого пользователя с копией
   };
 
+  // const handleSaveUser = () => {
+  //   const updatedUsers = users.map((user) =>
+  //     user.id === editedUser.id ? editedUser : user
+  //   );
+  //   setUsers(updatedUsers);
+  //   setEditedUser(null);
+  // };
+
   const handleSaveUser = () => {
-    const updatedUsers = users.map((user) =>
-      user.id === editedUser.id ? editedUser : user
-    );
-    setUsers(updatedUsers);
-    setEditedUser(null);
+    // Обновление данных пользователя на локальном сервере
+    fetch(`http://localhost:3333/users/${editedUser.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedUser),
+    })
+      .then(() => {
+        const updatedUsers = users.map((user) =>
+          user.id === editedUser.id ? editedUser : user
+        );
+        setUsers(updatedUsers);
+        setEditedUser(null);
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+      });
   };
 
   const handleSort = (field) => {
@@ -92,10 +157,7 @@ function UsersTable() {
             <th className={styles.th} onClick={() => handleSort("email")}>
               Email
             </th>
-            <th
-              className={styles.th}
-              onClick={() => handleSort("address.city")}
-            >
+            <th className={styles.th} onClick={() => handleSort("city")}>
               Город
             </th>
             <th className={styles.th} onClick={() => handleSort("phone")}>
@@ -104,10 +166,7 @@ function UsersTable() {
             <th className={styles.th} onClick={() => handleSort("website")}>
               Website
             </th>
-            <th
-              className={styles.th}
-              onClick={() => handleSort("company.name")}
-            >
+            <th className={styles.th} onClick={() => handleSort("company")}>
               Компания
             </th>
             <th className={styles.th}>Действия</th>
@@ -146,21 +205,13 @@ function UsersTable() {
                 {editedUser !== null && editedUser.id === user.id ? (
                   <input
                     type="text"
-                    value={editedUser.address ? editedUser.address.city : ""}
+                    value={editedUser.city}
                     onChange={(e) =>
-                      setEditedUser({
-                        ...editedUser,
-                        address: {
-                          ...editedUser.address,
-                          city: e.target.value,
-                        },
-                      })
+                      setEditedUser({ ...editedUser, city: e.target.value })
                     }
                   />
-                ) : user.address ? (
-                  user.address.city
                 ) : (
-                  ""
+                  user.city
                 )}
               </td>
               <td className={styles.td}>
@@ -189,7 +240,7 @@ function UsersTable() {
                   user.website
                 )}
               </td>
-              <td className={styles.td}>{user.company.name}</td>
+              <td className={styles.td}>{user.company}</td>
               <td className={styles.td}>
                 {editedUser !== null && editedUser.id === user.id ? (
                   <>

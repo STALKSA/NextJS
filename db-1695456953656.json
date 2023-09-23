@@ -1,0 +1,94 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Clementine Bauch",
+      "email": "Nathan@yesenia.net",
+      "city": "McKenziehaven",
+      "phone": "1-463-123-4447",
+      "website": "ramiro.info",
+      "company": "Romaguera-Jacobson"
+    },
+    {
+      "id": 2,
+      "name": "Patricia Lebsack",
+      "email": "Julianne.OConner@kory.org",
+      "city": "South Elvis",
+      "phone": "493-170-9623 x156",
+      "website": "kale.biz",
+      "company": "Robel-Corkery"
+    },
+    {
+      "id": 3,
+      "name": "Chelsey Dietrich",
+      "email": "Lucio_Hettinger@annie.ca",
+      "city": "Roscoeview",
+      "phone": "(254)954-1289",
+      "website": "demarco.info",
+      "company": "Keebler LLC"
+    },
+    {
+      "id": 4,
+      "name": "Mrs. Dennis Schulist",
+      "email": "Karley_Dach@jasper.info",
+      "city": "South Christy",
+      "phone": "1-477-935-8478 x6430",
+      "website": "ola.org",
+      "company": "Considine-Lockman"
+    },
+    {
+      "id": 5,
+      "name": "Kurtis Weissnat",
+      "email": "Telly.Hoeger@billy.biz",
+      "city": "Howemouth",
+      "phone": "210.067.6132",
+      "website": "elvis.io",
+      "company": "Johns Group"
+    },
+    {
+      "id": 6,
+      "name": "Nicholas Runolfsdottir V",
+      "email": "Sherwood@rosamond.me",
+      "city": "Aliyaview",
+      "phone": "586.493.6943 x140",
+      "website": "jacynthe.com",
+      "company": "Abernathy Group"
+    },
+    {
+      "id": 7,
+      "name": "Glenna Reichert",
+      "email": "Chaim_McDermott@dana.io",
+      "city": "Bartholomebury",
+      "phone": "(775)976-6794 x41206",
+      "website": "conrad.com",
+      "company": "Yost and Sons"
+    },
+    {
+      "id": 8,
+      "name": "John Doe",
+      "email": "Chaim_McDermott@dana.io",
+      "city": "New York",
+      "phone": "123-456-7890",
+      "website": "johndoe.com",
+      "company": "ABC Inc"
+    },
+    {
+      "id": 9,
+      "name": "Jane Smith",
+      "email": "janesmith@example.com",
+      "city": "Los Angeles",
+      "phone": "987-654-3210",
+      "website": "janesmith.com",
+      "company": "XYZ Ltd."
+    },
+    {
+      "id": 10,
+      "name": "Alice Johnson",
+      "email": "alicejohnson@example.com",
+      "city": "Chicago",
+      "phone": "555-123-4567",
+      "website": "alicejohnson.com",
+      "company": "123 Co."
+    }
+  ]
+}
