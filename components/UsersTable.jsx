@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UsersTable.module.css";
-import useSWR from 'swr';
-import toast from 'react-hot-toast';
-
+import useSWR, { mutate } from "swr";
+import toast from "react-hot-toast";
 
 function UsersTable() {
   const [users, setUsers] = useState([]);
@@ -32,7 +31,6 @@ function UsersTable() {
       });
   }, []);
 
-
   // const handleDeleteUser = (userId) => {
   //   const updatedUsers = users.filter((user) => user.id !== userId);
   //   setUsers(updatedUsers);
@@ -46,9 +44,12 @@ function UsersTable() {
       .then(() => {
         const updatedUsers = users.filter((user) => user.id !== userId);
         setUsers(updatedUsers);
+        toast.success("Пользователь удален");
+        mutate("http://localhost:3333/users");
       })
       .catch((error) => {
         console.error("Error deleting user:", error);
+        toast.error("Ошибка при удалении пользователя");
       });
   };
 
@@ -84,9 +85,12 @@ function UsersTable() {
           website: "",
           company: "",
         });
+        toast.info(`${data} добавлен`);
+        mutate("http://localhost:3333/users");
       })
       .catch((error) => {
         console.error("Error adding user:", error);
+        toast.error("Ошибка при добавлении прльзователя");
       });
   };
 
@@ -117,9 +121,12 @@ function UsersTable() {
         );
         setUsers(updatedUsers);
         setEditedUser(null);
+        toast.success("Пользователь обновлен");
+        mutate("http://localhost:3333/users");
       })
       .catch((error) => {
         console.error("Error updating user:", error);
+        toast.error("Ошибка при изменении пользователя");
       });
   };
 
